@@ -1,4 +1,9 @@
 package com.bibliotech.model;
 
-public class Recurso {
+public interface Recurso {
+    String isbn();
+    String titulo();
+    String autor();
+    int anio();
+    Categoria categoria();
 }
