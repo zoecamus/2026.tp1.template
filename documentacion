@@ -1,0 +1,36 @@
+## Decisiones de diseño
+
+### 1. Arquitectura en capas
+El sistema se organizó en las capas `model`, `repository`, `service`, `exception` y `Main (CLI)`
+Cada capa tiene una responsabilidad y solo depende de la inmediata inferior a través de interfaces, evitando dependencias directas
+
+---
+
+### 2. Principios SOLID
+- **SRP (Single Responsibility Principle)**: cada clase tiene una única responsabilidad. Los servicios contienen la lógica de negocio, mientras que los repositorios gestionan los datos
+- **OCP (Open/Closed Principle)**: el sistema está abierto a extensión pero cerrado a modificación.
+- **DIP (Dependency Inversion Principle)**: los servicios dependen de abstracciones (interfaces) y reciben sus repositorios mediante inyección por constructor
+- **ISP (Interface Segregation Principle)**: se definieron interfaces específicas para cada tipo de repositorio (`RecursoRepository`, `SocioRepository`, `PrestamoRepository`)
+
+---
+
+### 3. Uso de Java moderno
+- **Records**: se utilizaron `record` para representar entidades inmutables como `Libro`, `Ebook` y `Prestamo`, reduciendo código repetitivo
+- **Optional**: los métodos de búsqueda en los repositorios retornan `Optional<T>` para evitar el uso de `null`. En los servicios se utilizan métodos como `orElseThrow`, `ifPresent` y `filter`
+
+---
+
+### 4. Manejo de errores
+Se implementó una jerarquía de excepciones personalizadas que extienden de `BibliotecaException` (por ejemplo: `RecursoNotFoundException`, `LimitePrestamosException`, `DniDuplicadoException`)
+En `Main`, todas las operaciones del menú se ejecutan dentro de un bloque `try-catch` que captura `BibliotecaException` y muestra un mensaje claro al usuario
+
+---
+
+### 5. Interfaz por consola (CLI)
+Se implementó una interfaz por consola en la clase `Main` que permite interactuar con el sistema mediante un menú de opciones
+Esta capa se encarga únicamente de la entrada y salida de datos, delegando toda la lógica de negocio a los servicios, respetando la separación de responsabilidades
+
+---
+
+### 6. Persistencia en memoria
+Se utilizaron implementaciones de repositorios en memoria (`InMemory`) para almacenar los datos durante la ejecución del programa

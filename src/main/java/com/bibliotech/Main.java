@@ -20,16 +20,6 @@ public class Main {
         SocioService socioService       = new SocioServiceImp1(socioRepo);
         PrestamoService prestamoService = new PrestamoServiceImp1(recursoRepo, socioRepo, prestamoRepo);
 
-        // Datos de prueba
-        recursoService.registrarRecurso(new Libro(
-                "978-0-13-468599-1", "Clean Code", "Robert C. Martin", 2008, Categoria.TECNOLOGIA, 431, true
-        ));
-        try {
-            socioService.registrarSocio(1, "Ana", "Garcia", "30111222", "ana@uni.edu.ar", TipoSocio.ESTUDIANTE);
-        } catch (BibliotecaException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
         Scanner scanner = new Scanner(System.in);
         int opcion = -1;
 
@@ -51,7 +41,7 @@ public class Main {
                         System.out.print("ISBN: ");        String isbn   = scanner.nextLine();
                         System.out.print("Titulo: ");      String titulo = scanner.nextLine();
                         System.out.print("Autor: ");       String autor  = scanner.nextLine();
-                        System.out.print("Anio: ");        int anio      = Integer.parseInt(scanner.nextLine());
+                        System.out.print("Año: ");        int anio      = Integer.parseInt(scanner.nextLine());
                         System.out.print("Paginas: ");     int paginas   = Integer.parseInt(scanner.nextLine());
                         System.out.print("Categoria (CIENCIA/HISTORIA/LITERATURA/TECNOLOGIA/ARTE): ");
                         Categoria cat = Categoria.valueOf(scanner.nextLine().toUpperCase());
