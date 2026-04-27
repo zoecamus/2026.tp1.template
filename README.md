@@ -6,10 +6,10 @@
 ### Datos del Alumno
 
 | Campo | Respuesta |
-| :--- | :--- |
-| **Nombre** | |
-| **Apellido** | |
-| **Legajo** | |
+| :--- |:----------|
+| **Nombre** | Zoe       |
+| **Apellido** | Camus     |
+| **Legajo** | 63294     |
 
 > **Fecha de entrega:** 28 de Abril de 2026
 
