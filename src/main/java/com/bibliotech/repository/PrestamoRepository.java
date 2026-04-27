@@ -1,4 +1,9 @@
 package com.bibliotech.repository;
 
-public class PrestamoRepository {
+import com.bibliotech.model.Prestamo;
+import java.util.List;
+
+public interface PrestamoRepository extends Repository<Prestamo, Integer> {
+    List<Prestamo> buscarPorSocio(int socioId);
+    List<Prestamo> buscarActivos();
 }
