@@ -1,4 +1,5 @@
 package com.bibliotech.model;
 
-public class Categoria {
+public enum Categoria {
+    CIENCIA, HISTORIA, LITERATURA, TECNOLOGIA, ARTE, DERECHO, MEDICINA
 }
