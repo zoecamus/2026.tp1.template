@@ -1,20 +1,15 @@
-// src/main/java/com/bibliotech/service/SocioServiceImpl.java
 package com.bibliotech.service;
 
+import com.bibliotech.exception.BibliotecaException;
 import com.bibliotech.exception.DNIDuplicadoException;
 import com.bibliotech.exception.EmailInvalidoException;
 import com.bibliotech.model.Socio;
 import com.bibliotech.model.TipoSocio;
 import com.bibliotech.repository.SocioRepository;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class SocioServiceImp1 implements SocioService {
-
-    private static final Pattern EMAIL_PATTERN =
-            Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
 
     private final SocioRepository socioRepository;
 
@@ -25,19 +20,21 @@ public class SocioServiceImp1 implements SocioService {
     @Override
     public void registrarSocio(int id, String nombre, String apellido,
                                String dni, String email, TipoSocio tipo)
-            throws DNIDuplicadoException, EmailInvalidoException {
+            throws BibliotecaException {
 
-        if (!EMAIL_PATTERN.matcher(email).matches()) {
+        if (id <= 0)
+            throw new BibliotecaException("El ID del socio debe ser mayor a 0.");
+        if (nombre == null || nombre.isBlank())
+            throw new BibliotecaException("El nombre no puede estar vacio.");
+        if (apellido == null || apellido.isBlank())
+            throw new BibliotecaException("El apellido no puede estar vacio.");
+        if (!email.contains("@"))
             throw new EmailInvalidoException(email);
-        }
-
-        if (socioRepository.buscarPorDni(dni).isPresent()) {
+        if (socioRepository.buscarPorDni(dni).isPresent())
             throw new DNIDuplicadoException(dni);
-        }
 
-        Socio socio = new Socio(id, nombre, apellido, dni, email, tipo);
-        socioRepository.guardar(socio);
-        System.out.println("✔ Socio registrado: " + nombre + " " + apellido);
+        socioRepository.guardar(new Socio(id, nombre, apellido, dni, email, tipo));
+        System.out.println("Socio registrado: " + nombre + " " + apellido);
     }
 
     @Override
